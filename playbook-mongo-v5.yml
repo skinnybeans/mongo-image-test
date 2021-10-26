@@ -1,0 +1,25 @@
+---
+# playbook.yml
+- name: 'Provision Image'
+  hosts: default
+  become: true
+
+  tasks:
+    - name: Updating packages
+      yum:
+        name: '*'
+        state: 'latest'
+    - name: Mongo yum config
+      copy:
+        dest: '/etc/yum.repos.d/mongodb-org-5.0.repo'
+        content: |
+          [mongodb-org-5.0]
+          name=MongoDB Repository
+          baseurl=https://repo.mongodb.org/yum/amazon/2/mongodb-org/5.0/x86_64/
+          gpgcheck=1
+          enabled=1
+          gpgkey=https://www.mongodb.org/static/pgp/server-5.0.asc
+    - name: Install mongo
+      yum:
+        name: mongodb-org
+        state: latest
