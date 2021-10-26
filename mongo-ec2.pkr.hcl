@@ -18,7 +18,7 @@ source "amazon-ebs" "mongodb-example" {
 }
 
 build {
-  sources = ["source.amazon-ebs.basic-example"]
+  sources = ["source.amazon-ebs.mongodb-example"]
 
   provisioner "ansible" {
     playbook_file = "./playbook-mongo-v3.yml"

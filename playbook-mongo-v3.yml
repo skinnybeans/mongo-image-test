@@ -5,10 +5,10 @@
   become: true
 
   tasks:
-    - name: Updating packages
-      yum:
-        name: '*'
-        state: 'latest'
+    # - name: Updating packages
+    #   yum:
+    #     name: '*'
+    #    state: 'latest'
     - name: Mongo yum config
       copy:
         dest: '/etc/yum.repos.d/mongodb-org-3.0.repo'
@@ -20,5 +20,17 @@
           enabled=1
     - name: Install mongo
       yum:
-        name: mongodb-org
-        state: latest
+        name:
+          - mongodb-org-3.0.6
+          - mongodb-org-server-3.0.6
+          - mongodb-org-shell-3.0.6
+          - mongodb-org-mongos-3.0.6
+          - mongodb-org-tools-3.0.6
+        state: present
+    # - name: Copy mongo config file
+    #   ansible.builtin.copy:
+    #     src: ./config/prod/mongod.conf
+    #     dest: /etc/mongod.conf
+    #     owner: root
+    #     group: root
+    #     mode: '0644'

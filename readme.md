@@ -71,9 +71,28 @@ packer build mongo-ec2.pkr.hcl
 
 - config
 
-  - what do we need to config from the current box?
+  - change the location of the data and log directories
+  - /etc/mongod.conf
 
 - storage
+
   - attaching data drive
+    - mount point `/data`
+    - create ebs volume
+    - attach to instance at `xvdf`
+    - log onto instance
+    - format drive using `sudo mkfs -t xfs /dev/xvdf`
+    - create directory `sudo mkdir /data`
+    - mount disk `sudo mount /dev/xvdf /data`
+    - set permissions `chmod -R 777 /data` <- fix this
   - attaching log drive
-  - other drives??
+    - mount point `/log`
+    - same directions as data drive
+
+- init script
+  - default init script from package install has quirks (not being able to change data directory apparently)
+  - /etc/rc.d/init.d/mongod
+
+to start mongo service
+
+- `sudo service mongod start`
