@@ -15,6 +15,15 @@ source "amazon-ebs" "mongodb-example" {
   instance_type = "t2.micro"
   ssh_username  = "ec2-user"
   ami_name      = "mongodb {{timestamp}}"
+  tags = {
+    Name = "mongo-ami"
+    Base_AMI_Name = "{{ .SourceAMIName }}"
+    Repository = "mongo-image-test"
+  }
+  run_volume tags = {
+    Name = "mongo-packer-volume"
+    Repository = "mongo-image-test"
+  }
 }
 
 build {

@@ -27,10 +27,25 @@
           - mongodb-org-mongos-3.0.6
           - mongodb-org-tools-3.0.6
         state: present
-    # - name: Copy mongo config file
-    #   ansible.builtin.copy:
-    #     src: ./config/prod/mongod.conf
-    #     dest: /etc/mongod.conf
-    #     owner: root
-    #     group: root
-    #     mode: '0644'
+    - name: Copy mongo config file
+      ansible.builtin.copy:
+        src: ./config/prod/mongod.conf
+        dest: /etc/mongod.conf
+        owner: root
+        group: root
+        mode: '0644'
+    - name: New relic infra yum config
+      get_url:
+        url: https://download.newrelic.com/infrastructure_agent/linux/yum/amazonlinux/2/x86_64/newrelic-infra.repo
+        dest: /etc/yum.repos.d/newrelic-infra.repo
+    - name: Install new relic
+      yum:
+        name: newrelic-infra
+        state: latest
+    - name: Copy new relic config
+      ansible.builtin.copy:
+        src: ./config/prod/newrelic-infra.yml
+        dest: /etc/newrelic-infra.yml
+        owner: root
+        group: root
+        mode: '0644'

@@ -96,3 +96,7 @@ packer build mongo-ec2.pkr.hcl
 to start mongo service
 
 - `sudo service mongod start`
+
+- new relic infra agent install
+
+- new relic mongo integration install
